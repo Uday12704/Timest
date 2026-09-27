@@ -1,5 +1,7 @@
+"use client"
+
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import { EstimateHeaderForm } from "../components/estimate-header-form";
@@ -36,7 +38,7 @@ function EditCustomEstimateForm({
   estimate,
 }: EditCustomEstimateFormProps) {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   /*
    * ----------------------------------------
@@ -306,9 +308,7 @@ function EditCustomEstimateForm({
         "Estimate updated successfully.",
       );
       
-      navigate(
-        `/app/estimates/preview-custom-estimate/${estimate.id}`,
-      );
+      router.push(`/estimates/preview-custom-estimate/${estimate.id}`);
     };
     /*
    * ----------------------------------------
@@ -330,9 +330,7 @@ function EditCustomEstimateForm({
       "Estimate updated successfully.",
     );
 
-    navigate(
-      `/app/estimates/preview-custom-estimate/${estimate.id}`,
-    );
+    router.push(`/estimates/preview-custom-estimate/${estimate.id}`);
   };
 
   /*
@@ -355,9 +353,7 @@ function EditCustomEstimateForm({
       "Estimate marked as confirmed.",
     );
 
-    navigate(
-      `/app/estimates/preview-custom-estimate/${estimate.id}`,
-    );
+    router.push(`/estimates/preview-custom-estimate/${estimate.id}`);
   };
 
   const [shareOpen, setShareOpen] = useState(false);
@@ -419,7 +415,7 @@ function EditCustomEstimateForm({
           variant="outline"
           size="icon"
           onClick={() =>
-            navigate(-1)
+            router.back()
           }
           className="cursor-pointer"
         >
@@ -533,10 +529,15 @@ function EditCustomEstimateForm({
   );
 }
 
-export function EditCustomEstimatePage() {
+interface EditCustomEstimatePageProps {
+  id: string;
+}
+
+export function EditCustomEstimatePage({
+  id,
+}: EditCustomEstimatePageProps) {
   const { user } = useAuth();
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [estimate, setEstimate] =
     useState<SavedCustomEstimate | null>(null);
@@ -557,9 +558,7 @@ export function EditCustomEstimatePage() {
 
     if (!id) {
       toast.error("Estimate not found.");
-      navigate("/app/estimates/history", {
-        replace: true,
-      });
+      router.replace("/estimates/history");
       return;
     }
 
@@ -568,9 +567,7 @@ export function EditCustomEstimatePage() {
 
     if (!savedEstimate) {
       toast.error("Estimate not found.");
-      navigate("/app/estimates/history", {
-        replace: true,
-      });
+      router.replace("/estimates/history");
       return;
     }
 
@@ -579,16 +576,14 @@ export function EditCustomEstimatePage() {
         "This estimate is not a custom estimate.",
       );
 
-      navigate("/app/estimates/history", {
-        replace: true,
-      });
+      router.replace("/estimates/history");
 
       return;
     }
 
     setEstimate(savedEstimate);
     setIsLoading(false);
-  }, [id, navigate, user?.accountId,]);
+  }, [id, router, user?.accountId,]);
 
   /*
    * ----------------------------------------

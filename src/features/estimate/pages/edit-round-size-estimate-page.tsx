@@ -1,6 +1,8 @@
+"use client"
+
 import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import { Button } from "@/components/ui/button";
@@ -51,10 +53,15 @@ import { RoundSizeEstimatePdf } from "../pdf/round-size-estimate-pdf";
 import { pdf } from "@react-pdf/renderer";
 import { useAuth } from "@/features/auth/auth-context";
 
-export function EditRoundSizeEstimatePage() {
-    const { id } = useParams();
+interface EditRoundSizeEstimatePageProps {
+  id: string;
+}
+
+export function EditRoundSizeEstimatePage({
+  id,
+}: EditRoundSizeEstimatePageProps) {
     const { user } = useAuth();
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const [estimate, setEstimate] = useState<SavedRoundSizeEstimate | null>(
         null,
@@ -178,9 +185,7 @@ export function EditRoundSizeEstimatePage() {
             <Button
                 className="mt-4"
                 onClick={() =>
-                navigate(
-                    "/app/estimates/history",
-                )
+                  router.push("/estimates/history")
                 }
             >
                 Back to History
@@ -457,7 +462,7 @@ export function EditRoundSizeEstimatePage() {
           variant="outline"
           size="icon"
           onClick={() =>
-            navigate(-1)
+            router.back()
           }
           className="cursor-pointer"
         >
@@ -567,8 +572,8 @@ export function EditRoundSizeEstimatePage() {
 
             saveRoundEstimate(user!.accountId, estimate);
             toast.success("Estimate saved.");
-            navigate(
-              `/app/estimates/preview-round-size/${estimate.id}`,
+            router.push(
+              `/estimates/preview-round-size/${estimate.id}`,
             );
         }}
 
@@ -595,8 +600,8 @@ export function EditRoundSizeEstimatePage() {
             "Estimate updated and saved as draft.",
           );
 
-          navigate(
-            `/app/estimates/preview-round-size/${estimate.id}`,
+          router.push(
+            `/estimates/preview-round-size/${estimate.id}`,
           );
         }}
 
@@ -623,8 +628,8 @@ export function EditRoundSizeEstimatePage() {
             "Estimate updated and marked as confirmed.",
           );
 
-          navigate(
-            `/app/estimates/preview-round-size/${estimate.id}`,
+          router.push(
+            `/estimates/preview-round-size/${estimate.id}`,
           );
         }}
 

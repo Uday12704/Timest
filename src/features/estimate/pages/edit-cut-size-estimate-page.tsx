@@ -1,5 +1,7 @@
+"use client"
+
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import { EstimateHeaderForm } from "../components/estimate-header-form";
@@ -40,7 +42,7 @@ function EditCutSizeEstimateForm({
   estimate,
 }: EditCutSizeEstimateFormProps) {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   /*
    * ----------------------------------------
@@ -361,9 +363,7 @@ function EditCutSizeEstimateForm({
         "Estimate updated successfully.",
       );
       
-      navigate(
-        `/app/estimates/preview-cut-size/${estimate.id}`,
-      );
+      router.push(`/estimates/preview-cut-size/${estimate.id}`);
     };
     
     /*
@@ -385,9 +385,7 @@ function EditCutSizeEstimateForm({
       "Estimate updated successfully.",
     );
 
-    navigate(
-      `/app/estimates/preview-cut-size/${estimate.id}`,
-    );
+    router.push(`/estimates/preview-cut-size/${estimate.id}`);
   };
 
   /*
@@ -410,9 +408,7 @@ function EditCutSizeEstimateForm({
       "Estimate marked as confirmed.",
     );
 
-    navigate(
-      `/app/estimates/preview-cut-size/${estimate.id}`,
-    );
+    router.push(`/estimates/preview-cut-size/${estimate.id}`);
   };
 
   async function handleExport() {
@@ -474,7 +470,7 @@ function EditCutSizeEstimateForm({
           variant="outline"
           size="icon"
           onClick={() =>
-            navigate(-1)
+            router.back()
           }
           className="cursor-pointer"
         >
@@ -626,10 +622,15 @@ function EditCutSizeEstimateForm({
   );
 }
 
-export function EditCutSizeEstimatePage() {
-  const { id } = useParams<{ id: string }>();
+interface EditCutSizeEstimatePageProps {
+  id: string;
+}
+
+export function EditCutSizeEstimatePage({
+  id,
+}: EditCutSizeEstimatePageProps) {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [estimate, setEstimate] =
     useState<SavedEstimate | null>(null);
@@ -650,9 +651,7 @@ export function EditCutSizeEstimatePage() {
 
     if (!id) {
       toast.error("Estimate not found.");
-      navigate("/app/estimates/history", {
-        replace: true,
-      });
+      router.replace("/estimates/history");
       return;
     }
 
@@ -664,9 +663,7 @@ export function EditCutSizeEstimatePage() {
 
     if (!savedEstimate) {
       toast.error("Estimate not found.");
-      navigate("/app/estimates/history", {
-        replace: true,
-      });
+      router.replace("/estimates/history");
       return;
     }
 
@@ -675,9 +672,7 @@ export function EditCutSizeEstimatePage() {
         "This estimate is not a cut-size estimate.",
       );
 
-      navigate("/app/estimates/history", {
-        replace: true,
-      });
+      router.replace("/estimates/history");
 
       return;
     }
@@ -686,7 +681,7 @@ export function EditCutSizeEstimatePage() {
     setIsLoading(false);
   }, [
     id,
-    navigate,
+    router,
     user?.accountId,
   ]);
 
