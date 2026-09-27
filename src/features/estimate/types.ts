@@ -1,0 +1,252 @@
+export type EstimateType =
+  | "CUT_SIZE"
+  | "ROUND_SIZE"
+  | "CUSTOM";
+
+export type EstimateStatus =
+  | "ON_HOLD"
+  | "CONFIRMED";
+
+export type CalculationMode =
+  | "CFT"
+  | "SQFT";
+  
+export interface EstimateTypeOption {
+  type: EstimateType;
+  title: string;
+  description: string;
+  image: string;
+}
+
+export interface EstimateHeader {
+  documentTitle: string;
+  estimateNumber: string;
+  date: string;
+  partyName: string;
+  contactNumber: string;
+  reference: string;
+  status: EstimateStatus;
+}
+
+export interface WoodCategory {
+  id: string;
+  name: string;
+  calculationMode: CalculationMode;
+}
+
+export interface WoodItem {
+  id: string;
+
+  width: number | "";
+  height: number | "";
+
+  woodType: string;
+
+  pricePerUnit: number | "";
+
+  length: number | "";
+  quantity: number | "";
+  
+  note: string;
+  
+  total: number;
+  lineTotal: number;
+}
+
+export interface CutSizeAdditionalItem {
+  id: string;
+  description: string;
+  quantity: number | "";
+  unit: "",
+  pricePerUnit: number | "";
+  note: string;
+  lineTotal: number;
+}
+
+export interface RoundSizeItem {
+  id: string;
+  woodType: string;
+  logNo: string;
+  length: number | "";
+  girth: number | "";
+  cbm: number;
+  cft: number;
+  note: string;
+}
+
+export interface CustomEstimateItem {
+  id: string;
+  description: string;
+  quantity: number | "";
+  unit: string;
+  pricePerUnit: number | "";
+  note: string;
+  lineTotal: number;
+}
+
+export interface OtherCharge {
+  id: string;
+  name: string;
+  amount: number;
+}
+
+export interface SavedEstimate {
+  accountId: string;
+  createdBy: string;
+  id: string;
+  estimateNumber: string;
+  documentTitle: string;
+  date: string;
+  partyName: string;
+  contactNumber: string;
+  reference: string;
+
+  status:
+    | "ON_HOLD"
+    | "CONFIRMED";
+
+  type: "CUT_SIZE";
+
+  items: WoodItem[];
+
+  additionalItemsEnabled: boolean;
+  additionalItems: CutSizeAdditionalItem[];
+  additionalItemGstEnabled: boolean;
+  additionalItemGstRate: number;
+
+  otherCharges: OtherCharge[];
+
+  gstEnabled: boolean;
+  gstRate: number;
+  
+  discountType:
+  | "flat"
+  | "percentage";
+
+  discountValue: number;
+
+  advancePaid: number;
+
+  notes: string;
+
+  totals: {
+    subtotal: number;
+    gstAmount: number;
+    additionalSubtotal: number;
+    additionalGstAmount: number;
+    additionalTotal: number;
+    totalOtherCharges: number;
+    discountAmount: number;
+    grandTotal: number;
+    advancePaid: number;
+    balanceDue: number;
+    totalCft: number;
+    totalSqft: number;
+  };
+
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SavedRoundSizeEstimate {
+  accountId: string;
+  createdBy: string;
+  id: string;
+  estimateNumber: string;
+  documentTitle: string;
+  date: string;
+  partyName: string;
+  contactNumber: string;
+  reference: string;
+
+  status:
+    | "ON_HOLD"
+    | "CONFIRMED";
+
+  type: "ROUND_SIZE";
+
+  items: RoundSizeItem[];
+
+  cftEnabled: boolean;
+
+  pricePerCbm: number | "";
+
+  otherCharges: OtherCharge[];
+
+  gstEnabled: boolean;
+  gstRate: number;
+
+  discountType:
+    | "flat"
+    | "percentage";
+
+  discountValue: number;
+
+  advancePaid: number;
+
+  notes: string;
+
+  totals: {
+    subtotal: number;
+    gstAmount: number;
+    totalOtherCharges: number;
+    discountAmount: number;
+    grandTotal: number;
+    advancePaid: number;
+    balanceDue: number;
+    avgGirth: number;
+    totalCbm: number;
+    totalCft: number;
+  };
+
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SavedCustomEstimate {
+  accountId: string;
+  createdBy: string;
+  id: string;
+  estimateNumber: string;
+  documentTitle: string;
+  date: string;
+  partyName: string;
+  contactNumber: string;
+  reference: string;
+
+  status:
+    | "ON_HOLD"
+    | "CONFIRMED";
+
+  type: "CUSTOM";
+
+  items: CustomEstimateItem[];
+
+  otherCharges: OtherCharge[];
+
+  gstEnabled: boolean;
+  gstRate: number;
+
+  discountType:
+    | "flat"
+    | "percentage";
+
+  discountValue: number;
+
+  advancePaid: number;
+
+  notes: string;
+
+  totals: {
+    subtotal: number;
+    gstAmount: number;
+    totalOtherCharges: number;
+    discountAmount: number;
+    grandTotal: number;
+    advancePaid: number;
+    balanceDue: number;
+  };
+
+  createdAt: string;
+  updatedAt: string;
+}

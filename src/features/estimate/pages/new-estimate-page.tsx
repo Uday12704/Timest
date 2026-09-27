@@ -1,0 +1,85 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import {
+  EstimateTypeSelector,
+} from "../components/estimate-type-selector";
+
+import type {
+  EstimateType,
+} from "../types";
+import { FileText } from "lucide-react";
+
+export function NewEstimatePage() {
+  const router = useRouter();
+
+  function handleTypeSelect(
+    type: EstimateType,
+  ) {
+    if (type === "CUT_SIZE") {
+      router.push("/estimates/new/cut-size");
+      return;
+    }
+    if (type === "ROUND_SIZE") {
+      router.push("/estimates/new/round-size");
+
+      return;
+    }
+
+    router.push("/estimates/new/custom-estimate");
+  }
+
+  return (
+    <div className="space-y-6">
+
+      {/* PAGE HEADER */}
+
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight text-wood-secondary flex items-center gap-2">
+          <FileText /> New Estimate
+        </h1>
+
+        <p className="mt-1 text-sm text-muted-foreground">
+          Choose the type of wood estimate
+          you want to create.
+        </p>
+      </div>
+
+
+      {/* TYPE SELECTION */}
+
+      <Card>
+
+        <CardHeader>
+          <CardTitle className="text-lg font-semibold">
+            Select Estimate Type
+          </CardTitle>
+
+          <CardDescription>
+            Choose the calculation method
+            based on the type of wood.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent>
+
+          <EstimateTypeSelector
+            onSelect={handleTypeSelect}
+          />
+
+        </CardContent>
+
+      </Card>
+
+    </div>
+  );
+}
