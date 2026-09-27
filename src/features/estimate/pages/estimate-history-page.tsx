@@ -623,10 +623,10 @@ export function EstimateHistoryPage() {
                             onClick={() =>
                               router.push(
                                 estimate.kind === "CUT"
-                                ? `/app/estimates/preview-cut-size/${estimate.id}`
+                                ? `/estimates/preview-cut-size/${estimate.id}`
                                 : estimate.kind === "ROUND" 
-                                ? `/app/estimates/preview-round-size/${estimate.id}`
-                                : `/app/estimates/preview-custom-estimate/${estimate.id}`
+                                ? `/estimates/preview-round-size/${estimate.id}`
+                                : `/estimates/preview-custom-estimate/${estimate.id}`
                               )
                             }
                           >
@@ -640,10 +640,10 @@ export function EstimateHistoryPage() {
                             onClick={() =>
                               router.push(
                                 estimate.kind === "CUT"
-                                ? `/app/estimates/edit-cut-size/${estimate.id}`
+                                ? `/estimates/edit-cut-size/${estimate.id}`
                                 : estimate.kind === "ROUND" 
-                                ? `/app/estimates/edit-round-size/${estimate.id}`
-                                : `/app/estimates/edit-custom-estimate/${estimate.id}`
+                                ? `/estimates/edit-round-size/${estimate.id}`
+                                : `/estimates/edit-custom-estimate/${estimate.id}`
                               )
                             }
                           >
