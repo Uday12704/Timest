@@ -22,16 +22,28 @@ const PENDING_ACCOUNT_KEY =
   "wood-calc-auth-pending-account";
 
 /* ---------------------------------- */
+/* Browser check */
+/* ---------------------------------- */
+
+function isBrowser(): boolean {
+  return typeof window !== "undefined";
+}
+
+/* ---------------------------------- */
 /* Accounts */
 /* ---------------------------------- */
 
 export function getAccounts(): SubscriptionAccount[] {
-  const stored = localStorage.getItem(
+  if (!isBrowser()) {
+    return mockAccounts;
+  }
+
+  const stored = window.localStorage.getItem(
     ACCOUNTS_STORAGE_KEY,
   );
 
   if (!stored) {
-    localStorage.setItem(
+    window.localStorage.setItem(
       ACCOUNTS_STORAGE_KEY,
       JSON.stringify(mockAccounts),
     );
@@ -44,7 +56,7 @@ export function getAccounts(): SubscriptionAccount[] {
       stored,
     ) as SubscriptionAccount[];
   } catch {
-    localStorage.setItem(
+    window.localStorage.setItem(
       ACCOUNTS_STORAGE_KEY,
       JSON.stringify(mockAccounts),
     );
@@ -56,7 +68,11 @@ export function getAccounts(): SubscriptionAccount[] {
 export function saveAccounts(
   accounts: SubscriptionAccount[],
 ): void {
-  localStorage.setItem(
+  if (!isBrowser()) {
+    return;
+  }
+
+  window.localStorage.setItem(
     ACCOUNTS_STORAGE_KEY,
     JSON.stringify(accounts),
   );
@@ -67,12 +83,16 @@ export function saveAccounts(
 /* ---------------------------------- */
 
 export function getProfiles(): AppProfile[] {
-  const stored = localStorage.getItem(
+  if (!isBrowser()) {
+    return mockProfiles;
+  }
+
+  const stored = window.localStorage.getItem(
     PROFILES_STORAGE_KEY,
   );
 
   if (!stored) {
-    localStorage.setItem(
+    window.localStorage.setItem(
       PROFILES_STORAGE_KEY,
       JSON.stringify(mockProfiles),
     );
@@ -81,9 +101,11 @@ export function getProfiles(): AppProfile[] {
   }
 
   try {
-    return JSON.parse(stored) as AppProfile[];
+    return JSON.parse(
+      stored,
+    ) as AppProfile[];
   } catch {
-    localStorage.setItem(
+    window.localStorage.setItem(
       PROFILES_STORAGE_KEY,
       JSON.stringify(mockProfiles),
     );
@@ -95,7 +117,11 @@ export function getProfiles(): AppProfile[] {
 export function saveProfiles(
   profiles: AppProfile[],
 ): void {
-  localStorage.setItem(
+  if (!isBrowser()) {
+    return;
+  }
+
+  window.localStorage.setItem(
     PROFILES_STORAGE_KEY,
     JSON.stringify(profiles),
   );
@@ -106,7 +132,11 @@ export function saveProfiles(
 /* ---------------------------------- */
 
 export function getStoredSession(): AuthSession | null {
-  const stored = localStorage.getItem(
+  if (!isBrowser()) {
+    return null;
+  }
+
+  const stored = window.localStorage.getItem(
     SESSION_STORAGE_KEY,
   );
 
@@ -119,7 +149,7 @@ export function getStoredSession(): AuthSession | null {
       stored,
     ) as AuthSession;
   } catch {
-    localStorage.removeItem(
+    window.localStorage.removeItem(
       SESSION_STORAGE_KEY,
     );
 
@@ -130,20 +160,36 @@ export function getStoredSession(): AuthSession | null {
 export function saveSession(
   session: AuthSession,
 ): void {
-  localStorage.setItem(
+  if (!isBrowser()) {
+    return;
+  }
+
+  window.localStorage.setItem(
     SESSION_STORAGE_KEY,
     JSON.stringify(session),
   );
 }
 
 export function clearSession(): void {
-  localStorage.removeItem(
+  if (!isBrowser()) {
+    return;
+  }
+
+  window.localStorage.removeItem(
     SESSION_STORAGE_KEY,
   );
 }
 
+/* ---------------------------------- */
+/* Pending Account */
+/* ---------------------------------- */
+
 export function getPendingAccountId(): string | null {
-  return localStorage.getItem(
+  if (!isBrowser()) {
+    return null;
+  }
+
+  return window.localStorage.getItem(
     PENDING_ACCOUNT_KEY,
   );
 }
@@ -151,14 +197,22 @@ export function getPendingAccountId(): string | null {
 export function savePendingAccountId(
   accountId: string,
 ): void {
-  localStorage.setItem(
+  if (!isBrowser()) {
+    return;
+  }
+
+  window.localStorage.setItem(
     PENDING_ACCOUNT_KEY,
     accountId,
   );
 }
 
 export function clearPendingAccountId(): void {
-  localStorage.removeItem(
+  if (!isBrowser()) {
+    return;
+  }
+
+  window.localStorage.removeItem(
     PENDING_ACCOUNT_KEY,
   );
 }

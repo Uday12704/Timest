@@ -1,4 +1,6 @@
-import { Navigate, useNavigate } from "react-router-dom";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { User, LogOut, ShieldCheck } from "lucide-react";
 
 import {
@@ -17,7 +19,7 @@ import {
   getProfiles,
   clearPendingAccountId,
 } from "../auth-storage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Input } from "@/components/ui/input";
 import { requestOwnerPinRecovery, resetOwnerPin, verifyOwnerPinRecoveryOtp, type PinRecoveryRequest } from "../pin-recovery";
@@ -30,8 +32,9 @@ export function ProfileSelectionPage() {
     selectProfile,
     logout,
   } = useAuth();
+  
+  const router = useRouter();
 
-  const navigate = useNavigate();
   const [pinProfileId, setPinProfileId] =
     useState<string | null>(null);
 
@@ -45,15 +48,52 @@ export function ProfileSelectionPage() {
 
   const [recoveryOtp, setRecoveryOtp] =
     useState("");
-
+    
   const [newOwnerPin, setNewOwnerPin] =
     useState("");
-
+    
   const [confirmOwnerPin, setConfirmOwnerPin] =
     useState("");
-
+    
   const [isRecoveryVerified, setIsRecoveryVerified] =
     useState(false);
+    
+  const accountId = getPendingAccountId();
+  
+  const account = accountId
+    ? getAccounts().find(
+        (item) =>
+          item.id === accountId &&
+          item.active,
+      )
+    : null;
+
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
+    if (isAuthenticated) {
+      router.replace("/dashboard");
+      return;
+    }
+
+    if (!accountId) {
+      router.replace("/login");
+      return;
+    }
+
+    if (!account) {
+      clearPendingAccountId();
+      router.replace("/login");
+    }
+  }, [
+    isLoading,
+    isAuthenticated,
+    accountId,
+    account,
+    router,
+  ]);
 
   if (isLoading) {
     return (
@@ -65,43 +105,8 @@ export function ProfileSelectionPage() {
     );
   }
 
-  // If a profile is already selected, don't show
-  // the profile selection screen again.
-  if (isAuthenticated) {
-    return (
-      <Navigate
-        to="/app/dashboard"
-        replace
-      />
-    );
-  }
-
-  const accountId = getPendingAccountId();
-
-  if (!accountId) {
-    return (
-      <Navigate
-        to="/login"
-        replace
-      />
-    );
-  }
-
-  const account = getAccounts().find(
-    (item) =>
-      item.id === accountId &&
-      item.active,
-  );
-
-  if (!account) {
-    clearPendingAccountId();
-
-    return (
-      <Navigate
-        to="/login"
-        replace
-      />
-    );
+  if (isAuthenticated || !accountId || !account) {
+    return null;
   }
 
   const profiles = getProfiles().filter(
@@ -127,13 +132,9 @@ export function ProfileSelectionPage() {
       if (
         selectedUser.platformRole === "ADMIN"
       ) {
-        navigate("/admin/dashboard", {
-          replace: true,
-        });
+        router.replace("/admin/dashboard");
       } else {
-        navigate("/app/dashboard", {
-          replace: true,
-        });
+        router.replace("/dashboard");
       }
     } catch (error) {
       if (
@@ -274,9 +275,7 @@ export function ProfileSelectionPage() {
 
   function handleLogout() {
     logout();
-    navigate("/login", {
-      replace: true,
-    });
+    router.replace("/login");
   }
 
   return (

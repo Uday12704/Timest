@@ -1,4 +1,6 @@
-import { Navigate, useNavigate } from "react-router-dom";
+"use client"
+
+import { useRouter } from "next/navigation";
 
 import {
   Card,
@@ -11,8 +13,7 @@ import {
 import { LoginForm } from "../components/login-form";
 import { useAuth } from "../auth-context";
 import type { LoginCredentials } from "../types";
-import { useState } from "react";
-import logo from "../../../assets/logo.jpeg";
+import { useEffect, useState } from "react";
 
 export function LoginPage() {
   const {
@@ -22,24 +23,26 @@ export function LoginPage() {
     isLoading,
   } = useAuth();
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [error, setError] =
     useState<string | null>(null);
 
-  if (isAuthenticated) {
-    const destination =
-      user?.platformRole === "ADMIN"
-        ? "/admin/dashboard"
-        : "/app/dashboard";
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      const destination =
+        user?.platformRole === "ADMIN"
+          ? "/admin/dashboard"
+          : "/dashboard";
 
-    return (
-      <Navigate
-        to={destination}
-        replace
-      />
-    );
-  }
+      router.replace(destination);
+    }
+  }, [
+    isAuthenticated,
+    isLoading,
+    user,
+    router,
+  ]);
 
   async function handleLogin(
     credentials: LoginCredentials,
@@ -53,20 +56,16 @@ export function LoginPage() {
       // Multiple subscriber profiles.
       // Stay on the login flow until a profile is selected.
       if (!authenticatedUser) {
-        navigate("/select-profile", {
-          replace: true,
-        });
+        router.replace("/select-profile");
         return;
       }
 
       const destination =
         authenticatedUser.platformRole === "ADMIN"
           ? "/admin/dashboard"
-          : "/app/dashboard";
+          : "/dashboard";
 
-      navigate(destination, {
-        replace: true,
-      });
+      router.replace(destination);
     } catch (error) {
       if (error instanceof Error) {
         setError(error.message);
@@ -84,7 +83,7 @@ export function LoginPage() {
       <CardHeader className="space-y-4 text-center">
 
         <div className="mx-auto flex items-center justify-center rounded-xl bg-primary text-primary-foreground">
-          <img src={logo} alt="Timest logo" className="w-25 h-15" />
+          <img src="/logo.jpeg" alt="Timest logo" className="w-25 h-15" />
         </div>
 
         <div>
