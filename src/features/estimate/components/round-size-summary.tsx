@@ -1,4 +1,3 @@
-
 import { formatCurrency } from "@/lib/formatters";
 
 interface RoundSizeSummaryProps {

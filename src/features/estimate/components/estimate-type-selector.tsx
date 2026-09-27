@@ -1,10 +1,6 @@
 import { EstimateTypeCard } from "./estimate-type-card";
 import type { EstimateType } from "../types";
 
-import cutSizeImg from "../../../assets/cut-size.png";
-import roundSizeImg from "../../../assets/round-size.png";
-import customImg from "../../../assets/custom-image.png";
-
 interface EstimateTypeSelectorProps {
   onSelect: (
     type: EstimateType,
