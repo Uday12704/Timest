@@ -1,5 +1,7 @@
+"use client"
+
 import { useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Download,
@@ -25,10 +27,15 @@ import { ShareEstimateDialog } from "../components/share-estimate-dialog";
 import { formatCurrency } from "@/lib/formatters";
 import { getBusinessSettings } from "@/features/settings/services/settings-storage";
 
-export function PreviewCutSizePage() {
+interface PreviewCutSizePageProps {
+  id: string;
+}
+
+export function PreviewCutSizePage({
+  id,
+}: PreviewCutSizePageProps) {
   const { user } = useAuth();
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [shareOpen, setShareOpen] = useState(false);
 
   const estimate = useMemo(() => {
@@ -59,10 +66,8 @@ export function PreviewCutSizePage() {
 
           <Button
             className="mt-4"
-            onClick={() =>
-              navigate(
-                "/app/estimates/history",
-              )
+            onClick={() => 
+              router.push("/estimates/history")
             }
           >
             Back to History
@@ -135,9 +140,7 @@ export function PreviewCutSizePage() {
           <Button
             variant="outline"
             size="icon"
-            onClick={() =>
-              navigate(-1)
-            }
+            onClick={() => router.back()}
             className="cursor-pointer"
           >
             <ArrowLeft className="size-4" />
@@ -160,7 +163,9 @@ export function PreviewCutSizePage() {
           <Button
             variant="outline"
             onClick={() =>
-              navigate(`/app/estimates/edit-cut-size/${estimate.id}`)
+              router.push(
+                `/estimates/edit-cut-size/${estimate.id}`,
+              )
             }
             className="cursor-pointer"
           >

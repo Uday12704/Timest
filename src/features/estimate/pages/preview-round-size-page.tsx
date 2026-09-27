@@ -1,5 +1,7 @@
+"use client"
+
 import { useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Download,
@@ -27,10 +29,15 @@ import { ShareEstimateDialog } from "../components/share-estimate-dialog";
 import { formatCurrency } from "@/lib/formatters";
 import { getBusinessSettings } from "@/features/settings/services/settings-storage";
 
-export function PreviewRoundSizePage() {
+interface PreviewRoundSizePageProps {
+  id: string;
+}
+
+export function PreviewRoundSizePage({
+  id,
+}: PreviewRoundSizePageProps) {
   const { user } = useAuth();
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [shareOpen, setShareOpen] = useState(false);
 
   const estimate = useMemo(() => {
@@ -67,10 +74,8 @@ export function PreviewRoundSizePage() {
 
           <Button
             className="mt-4"
-            onClick={() =>
-              navigate(
-                "/app/estimates/history",
-              )
+            onClick={() => 
+              router.push("/estimates/history")
             }
           >
             Back to History
@@ -131,7 +136,7 @@ export function PreviewRoundSizePage() {
             variant="outline"
             size="icon"
             onClick={() =>
-              navigate(-1)
+              router.back()
             }
             className="cursor-pointer"
           >
@@ -157,7 +162,9 @@ export function PreviewRoundSizePage() {
           <Button
             variant="outline"
             onClick={() =>
-              navigate(`/app/estimates/edit-round-size/${estimate.id}`)
+              router.push(
+                `/estimates/edit-round-size/${estimate.id}`,
+              )
             }
             className="cursor-pointer"
           >

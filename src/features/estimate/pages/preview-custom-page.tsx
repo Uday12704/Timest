@@ -1,5 +1,7 @@
+"use client"
+
 import { useMemo, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Download,
@@ -24,10 +26,15 @@ import { formatCurrency } from "@/lib/formatters";
 import { ShareEstimateDialog } from "../components/share-estimate-dialog";
 import { getBusinessSettings } from "@/features/settings/services/settings-storage";
 
-export function PreviewCustomEstimatePage() {
+interface PreviewCustomEstimatePageProps {
+  id: string;
+}
+
+export function PreviewCustomEstimatePage({
+  id,
+}: PreviewCustomEstimatePageProps) {
   const { user } = useAuth();
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [shareOpen, setShareOpen] = useState(false);
 
@@ -60,10 +67,8 @@ export function PreviewCustomEstimatePage() {
 
           <Button
             className="mt-4"
-            onClick={() =>
-              navigate(
-                "/app/estimates/history",
-              )
+            onClick={() => 
+              router.push("/estimates/history")
             }
           >
             Back to History
@@ -136,7 +141,7 @@ export function PreviewCustomEstimatePage() {
             variant="outline"
             size="icon"
             onClick={() =>
-              navigate(-1)
+              router.back()
             }
             className="cursor-pointer"
           >
@@ -160,7 +165,9 @@ export function PreviewCustomEstimatePage() {
           <Button
             variant="outline"
             onClick={() =>
-              navigate(`/app/estimates/edit-custom-estimate/${estimate.id}`)
+              router.push(
+                `/estimates/edit-custom-estimate/${estimate.id}`,
+              )
             }
             className="cursor-pointer"
           >
