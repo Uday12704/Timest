@@ -500,16 +500,25 @@ export default function CustomerSupportPage() {
 
             <div className="hidden md:flex">
               <div className="relative flex h-36 w-36 items-center justify-center rounded-3xl border bg-background/80 shadow-sm backdrop-blur">
+                {/* Inner decorative border */}
                 <div className="absolute inset-3 rounded-2xl border border-wood-secondary/40" />
 
-                <Headphones className="relative h-16 w-16 text-wood-primary" />
-
-                <div className="absolute -right-3 -top-3 flex h-10 w-10 items-center justify-center rounded-xl border bg-background shadow-sm">
-                  <MessageSquare className="h-5 w-5 text-wood-secondary" />
+                {/* Center Headphones */}
+                <div className="relative z-10 flex h-20 w-20 items-center justify-center">
+                  <Headphones className="h-16 w-16 text-wood-primary animate-pulse" />
                 </div>
 
-                <div className="absolute -bottom-3 -left-3 flex h-10 w-10 items-center justify-center rounded-xl border bg-background shadow-sm">
-                  <CheckCircle2 className="h-5 w-5 text-wood-secondary" />
+                {/* Circular orbit */}
+                <div className="absolute inset-0 animate-[spin_10s_linear_infinite]">
+                  {/* Message icon */}
+                  <div className="absolute -right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border bg-background shadow-sm animate-[spin_10s_linear_infinite_reverse]">
+                    <MessageSquare className="h-5 w-5 text-wood-secondary" />
+                  </div>
+
+                  {/* Check icon */}
+                  <div className="absolute -left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-xl border bg-background shadow-sm animate-[spin_10s_linear_infinite_reverse]">
+                    <CheckCircle2 className="h-5 w-5 text-wood-secondary" />
+                  </div>
                 </div>
               </div>
             </div>
