@@ -69,7 +69,7 @@ export default function FaqsPage() {
             href="/"
             className="text-2xl font-bold tracking-tight text-[#432818]"
           >
-            Timest
+            <img src="logo.jpeg" alt="logo" className="w-20 h-12"/>
           </Link>
 
           <Link

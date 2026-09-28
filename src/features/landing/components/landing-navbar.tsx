@@ -45,11 +45,7 @@ export default function LandingNavbar() {
           className="group flex items-center gap-2"
           onClick={() => setMobileMenuOpen(false)}
         >
-          <img src="logo.jpeg" alt="logo" className="h-10 w-18"/>
-
-          <span className="text-2xl font-bold tracking-tight text-[#432818]">
-            Timest
-          </span>
+          <img src="logo.png" alt="logo" className="w-25"/>
         </Link>
 
         {/* Desktop Navigation */}

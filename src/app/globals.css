@@ -43,6 +43,8 @@
     --color-background: var(--background);
     --color-wood-primary: var(--wood-primary);
     --color-wood-secondary: var(--wood-secondary);
+    --color-wood-dark: var(--wood-dark);
+    --color-wood-light: var(--wood-light);
     --radius-sm: calc(var(--radius) * 0.6);
     --radius-md: calc(var(--radius) * 0.8);
     --radius-lg: var(--radius);
@@ -89,6 +91,8 @@
     --sidebar-ring: oklch(0.708 0 0);
     --wood-primary: #B87333;
     --wood-secondary: #e06d1a;
+    --wood-dark: #432818;
+    --wood-light: #F7E9D5;
 }
 
 .dark {
@@ -127,6 +131,8 @@
     --sidebar-ring: oklch(0.556 0 0);
     --wood-primary: #B87333;
     --wood-secondary: #e06d1a;
+    --wood-dark: #F3E6D3;
+    --wood-light: #21160F;
 }
 
 @layer base {

@@ -18,6 +18,7 @@ const tutorials = [
     title: "Introduction to Timest",
     description:
       "Understand what Timest is and how it can help simplify your timber business workflow.",
+    videoUrl: "https://youtu.be/kiwVPi11IZY?si=CWxo1bpJO9mwF6QM",
   },
   {
     category: "Estimates",
@@ -25,6 +26,7 @@ const tutorials = [
     title: "Creating a Cut-Size Estimate",
     description:
       "Learn how to create a cut-size estimate, enter wood dimensions, quantities, pricing, and calculate the total.",
+    videoUrl: "https://youtu.be/kiwVPi11IZY?si=CWxo1bpJO9mwF6QM",
   },
   {
     category: "Estimates",
@@ -32,6 +34,7 @@ const tutorials = [
     title: "Creating a Round-Size Estimate",
     description:
       "Learn how to create and manage a round-size wood estimate.",
+    videoUrl: "",
   },
   {
     category: "Estimates",
@@ -39,6 +42,7 @@ const tutorials = [
     title: "Creating a Custom Estimate",
     description:
       "Understand how custom estimates work and how to create one for your business requirements.",
+    videoUrl: "",
   },
   {
     category: "Estimates",
@@ -46,6 +50,7 @@ const tutorials = [
     title: "Managing Estimate History",
     description:
       "Learn how to find previous estimates, preview them, edit them, and manage your estimate history.",
+    videoUrl: "",
   },
   {
     category: "Customers",
@@ -53,6 +58,7 @@ const tutorials = [
     title: "Managing Customers",
     description:
       "Learn how to add, view, and manage your customer information.",
+    videoUrl: "",
   },
   {
     category: "Delivery",
@@ -60,6 +66,7 @@ const tutorials = [
     title: "Using the Delivery Checklist",
     description:
       "Learn how to manage delivery requirements and keep track of order preparation.",
+    videoUrl: "",
   },
   {
     category: "Settings",
@@ -67,6 +74,7 @@ const tutorials = [
     title: "Managing Your Settings",
     description:
       "Learn how to configure your business information and customize your Timest account.",
+    videoUrl: "",
   },
   {
     category: "Support",
@@ -74,6 +82,7 @@ const tutorials = [
     title: "Getting Customer Support",
     description:
       "Learn how to create a support request and communicate with the Timest support team.",
+    videoUrl: "",
   },
 ];
 
@@ -87,7 +96,7 @@ export default function TutorialsPage() {
             href="/"
             className="text-2xl font-bold tracking-tight text-[#432818]"
           >
-            Timest
+            <img src="logo.jpeg" alt="logo" className="w-20 h-12"/>
           </Link>
 
           <Link
@@ -133,20 +142,25 @@ export default function TutorialsPage() {
                   className="group overflow-hidden rounded-3xl border border-[#B87333]/20 bg-white/55 transition-all duration-300 hover:-translate-y-1 hover:border-[#B87333]/40 hover:bg-white/75 hover:shadow-xl"
                 >
                   {/* Video */}
-                  <div className="relative aspect-video bg-[#432818]">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(184,115,51,0.25),_transparent_60%)]" />
+                  <Link 
+                    href={tutorial.videoUrl}
+                    target="_blank"
+                   >
+                    <div className="relative aspect-video bg-[#432818]">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(184,115,51,0.25),_transparent_60%)]" />
 
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#B87333] shadow-lg transition-transform duration-300 group-hover:scale-110">
-                        <Play className="ml-1 h-7 w-7 fill-[#F7E9D5] text-[#F7E9D5]" />
-                      </div>
-                    </div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#B87333] shadow-lg transition-transform duration-300 group-hover:scale-110">
+                                <Play className="ml-1 h-7 w-7 fill-[#F7E9D5] text-[#F7E9D5]" />
+                            </div>
+                        </div>
 
-                    <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-lg bg-[#F7E9D5]/10 px-3 py-1.5 text-xs text-[#F7E9D5]/70 backdrop-blur">
-                      <Icon className="h-3.5 w-3.5" />
-                      {tutorial.category}
+                        <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-lg bg-[#F7E9D5]/10 px-3 py-1.5 text-xs text-[#F7E9D5]/70 backdrop-blur">
+                            <Icon className="h-3.5 w-3.5" />
+                            {tutorial.category}
+                        </div>
                     </div>
-                  </div>
+                  </Link>
 
                   {/* Content */}
                   <div className="p-6">
@@ -162,13 +176,14 @@ export default function TutorialsPage() {
                       {tutorial.description}
                     </p>
 
-                    <button
-                      type="button"
+                    <Link
+                      href={tutorial.videoUrl}
+                      target="_blank"
                       className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#B87333]"
                     >
                       Watch tutorial
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </button>
+                    </Link>
                   </div>
                 </article>
               );

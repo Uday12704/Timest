@@ -85,7 +85,7 @@ export function SalesOverview({
             <Bar
               dataKey="sales"
               radius={6}
-              fill="var(--wood-secondary)"
+              fill="var(--wood-primary)"
             />
           </BarChart>
         </ChartContainer>

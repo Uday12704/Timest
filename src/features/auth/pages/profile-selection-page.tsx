@@ -279,15 +279,33 @@ export function ProfileSelectionPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
-      <Card className="w-full max-w-2xl shadow-sm">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#F7E9D5] px-4 py-12">
+    {/* Background decorations */}
+    <div className="pointer-events-none absolute -left-24 top-10 size-80 rounded-full bg-wood-primary/10 blur-3xl" />
+    <div className="pointer-events-none absolute -right-24 bottom-10 size-80 rounded-full bg-wood-primary/10 blur-3xl" />
+
+    <div className="relative z-10 w-full max-w-3xl">
+      {/* Brand */}
+      <button
+        type="button"
+        onClick={() => router.push("/")}
+        className="mx-auto mb-8 flex cursor-pointer items-center justify-center gap-3"
+      >
+        <img src="logo.jpeg" alt="logo" className="w-30 h-20"/>
+      </button>
+
+      <Card className="w-full rounded-3xl border border-wood-primary/20 bg-white/85 shadow-xl shadow-[#432818]/10 backdrop-blur-sm">
+        <CardHeader className="space-y-3 px-6 pt-8 text-center sm:px-10">
+          <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-wood-primary/10 text-wood-primary">
+            <User className="size-7" />
+          </div>
+
+          <CardTitle className="text-2xl font-bold tracking-tight text-[#432818] sm:text-3xl">
             Who is using this account?
           </CardTitle>
 
-          <CardDescription>
-            Select your profile to continue.
+          <CardDescription className="text-sm text-[#432818]/60">
+            Select your profile to continue to your workspace.
           </CardDescription>
         </CardHeader>
 
@@ -295,40 +313,34 @@ export function ProfileSelectionPage() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {profiles.map((profile) => (
               <button
-                key={profile.id}
-                type="button"
-                onClick={() =>
-                  handleProfileSelect(
-                    profile.id,
-                  )
-                }
-                className="group rounded-xl border bg-background p-6 text-center transition hover:border-primary hover:bg-accent cursor-pointer"
-              >
-                <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <User className="size-8" />
-                </div>
+              key={profile.id}
+              type="button"
+              onClick={() => handleProfileSelect(profile.id)}
+              className="group cursor-pointer rounded-2xl border border-wood-primary/15 bg-accent-sidebar/40 p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:border-wood-primary hover:bg-accent-sidebar hover:shadow-lg hover:shadow-wood-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wood-primary"
+            >
+              <div className="mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl bg-wood-primary/10 text-wood-primary transition-all duration-200 group-hover:bg-wood-primary group-hover:text-white">
+                <User className="size-8" />
+              </div>
 
-                <p className="font-semibold">
-                  {profile.name}
-                </p>
+              <p className="font-semibold text-[#432818]">
+                {profile.name}
+              </p>
 
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {profile.role === "OWNER"
-                    ? "Owner"
-                    : "User"}
-                </p>
-              </button>
+              <span className="mt-2 inline-flex rounded-full border border-wood-primary/20 bg-white/60 px-3 py-1 text-xs font-medium text-[#432818]/70">
+                {profile.role === "OWNER" ? "Owner" : "User"}
+              </span>
+            </button>
             ))}
           </div>
 
           {pinProfileId && (
-            <div className="rounded-xl border bg-muted/30 p-5">
+            <div className="rounded-2xl border border-wood-primary/20 bg-accent-sidebar/50 p-5 sm:p-6">
               <div className="mb-4">
-                <h3 className="font-semibold">
+                <h3 className="font-semibold text-[#432818]">
                   Enter Profile PIN
                 </h3>
 
-                <p className="text-sm text-muted-foreground">
+                <p className="mt-1 text-sm text-[#432818]/60">
                   Enter the 4-digit PIN to continue to{" "}
                   {
                     profiles.find(
@@ -354,7 +366,7 @@ export function ProfileSelectionPage() {
                   }
                   placeholder="Enter 4-digit PIN"
                   autoFocus
-                  className="sm:max-w-xs"
+                  className="border-wood-primary/20 bg-white text-[#432818] focus-visible:border-wood-primary focus-visible:ring-wood-primary/20 sm:max-w-xs"
                 />
 
 
@@ -373,7 +385,7 @@ export function ProfileSelectionPage() {
                       pin,
                     );
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-[#432818] text-white hover:bg-wood-primary"
                 >
                   Continue
                 </Button>
@@ -385,7 +397,7 @@ export function ProfileSelectionPage() {
                     setPinProfileId(null);
                     setPin("");
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer border-wood-primary/30 bg-transparent text-[#432818] hover:bg-wood-primary/10"
                 >
                   Cancel
                 </Button>
@@ -397,7 +409,7 @@ export function ProfileSelectionPage() {
                 )?.role === "OWNER" && (
                   <button
                     type="button"
-                    className="mt-2 text-left text-sm text-primary hover:underline sm:self-center cursor-pointer"
+                    className="mt-2 cursor-pointer text-left text-sm font-medium text-wood-primary hover:underline sm:self-center"
                     onClick={handleForgotPin}
                   >
                     Forgot PIN?
@@ -419,6 +431,10 @@ export function ProfileSelectionPage() {
           </div>
         </CardContent>
       </Card>
+      <p className="mt-6 text-center text-xs text-[#432818]/50">
+        © {new Date().getFullYear()} Timest. All rights reserved.
+      </p>
+    </div>
 
       <Dialog
         open={isRecoveryOpen}

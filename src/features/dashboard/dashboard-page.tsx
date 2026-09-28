@@ -145,8 +145,8 @@ export function DashboardPage() {
       {/* PAGE HEADER */}
 
       <div className="space-y-1">
-        <span className="text-3xl font-bold bg-gradient-to-r from-[#e62314] to-[#f19e18] bg-clip-text text-transparent">
-          Hello, {user?.name || "there"}!
+        <span className="text-3xl font-bold text-wood-dark">
+          Hello, <span className="text-wood-primary">{user?.name || "there"}!</span>
         </span>
 
 
@@ -160,19 +160,26 @@ export function DashboardPage() {
           className="group cursor-pointer border-dashed transition-all hover:border-primary hover:shadow-md"
           onClick={() => router.push("/estimates/new")}
           >
-          <CardContent className="flex items-center gap-4 p-5">
-            <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-              <Plus className="size-6" />
-            </div>
+          <CardContent className="flex items-center justify-between gap-4 p-5">
+            <div className="flex items-center gap-4">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-wood-light text-wood-primary transition-colors group-hover:bg-wood-primary group-hover:text-primary-foreground">
+                <Plus className="size-6" />
+              </div>
 
-            <div className="flex-1">
-              <h3 className="font-semibold">Create New Estimate</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Start a cut-size, round-size, or custom estimate.
-              </p>
-            </div>
+              <div className="flex-1">
+                <h3 className="font-semibold">Create New Estimate</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Start a cut-size, round-size, or custom estimate.
+                </p>
+              </div>
 
-            <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+            </div>
+            <div className="flex items-center gap-6">
+              <img src="cut-size.png" alt="" className="w-30 h-20"/>
+              <img src="round-size.png" alt="" className="w-30 h-20"/>
+              <img src="custom-image.png" alt="" className="w-25 h-20"/>
+              <ArrowRight className="size-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
+            </div>
           </CardContent>
         </Card>
       </div>

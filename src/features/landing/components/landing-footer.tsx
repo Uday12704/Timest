@@ -25,7 +25,7 @@ const supportLinks = [
 export default function LandingFooter() {
   return (
     <footer className="border-t border-[#B87333]/15 bg-[#F7E9D5]">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 py-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           {/* Brand */}
           <div>
@@ -33,7 +33,7 @@ export default function LandingFooter() {
               href="/"
               className="text-2xl font-bold tracking-tight text-[#432818]"
             >
-              <img src="logo.jpeg" alt="logo" className="h-15 w-25"/>
+              <img src="logo.png" alt="logo" className="w-30"/>
             </Link>
 
             <p className="mt-5 max-w-sm text-sm leading-6 text-[#432818]/55">
@@ -47,7 +47,7 @@ export default function LandingFooter() {
               className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-[#432818]/70 transition-colors hover:text-[#B87333]"
             >
               <Mail className="h-4 w-4" />
-              support@timest.com
+              timestbusiness@gmail.com
             </a>
           </div>
 

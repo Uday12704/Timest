@@ -10,7 +10,7 @@ import {
 const tutorials = [
   {
     icon: Calculator,
-    title: "Creating Your First Estimate",
+    title: "Creating Your Cut-size Estimate",
     description:
       "Learn how to create a wood estimate and calculate quantities and pricing.",
   },
