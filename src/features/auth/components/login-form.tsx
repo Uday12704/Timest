@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { AlertCircle, Eye, EyeOff, Loader2 } from "lucide-react";
+import {
+  AlertCircle,
+  Eye,
+  EyeOff,
+  Loader2,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,17 +51,20 @@ export function LoginForm({
       {error && (
         <div
           role="alert"
-          className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
+          className="flex items-start gap-2 rounded-xl border border-red-300/40 bg-red-50 p-3 text-sm text-red-700"
         >
           <AlertCircle className="mt-0.5 size-4 shrink-0" />
 
           <p>{error}</p>
         </div>
       )}
-      {/* EMAIL */}
 
+      {/* EMAIL */}
       <div className="space-y-2">
-        <Label htmlFor="email">
+        <Label
+          htmlFor="email"
+          className="text-[#432818]"
+        >
           Email
         </Label>
 
@@ -71,20 +79,23 @@ export function LoginForm({
           autoComplete="email"
           required
           disabled={isLoading}
+          className="h-12 border-[#B87333]/20 bg-[#F7E9D5]/40 text-[#432818] placeholder:text-[#432818]/35 focus-visible:border-[#B87333] focus-visible:ring-[#B87333]/15"
         />
       </div>
 
       {/* PASSWORD */}
-
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <Label htmlFor="password">
+          <Label
+            htmlFor="password"
+            className="text-[#432818]"
+          >
             Password
           </Label>
 
           <button
             type="button"
-            className="text-xs font-medium text-primary hover:underline cursor-pointer"
+            className="cursor-pointer text-xs font-medium text-[#B87333] transition-colors hover:text-[#432818] hover:underline"
             onClick={() => {
               // Forgot password will be implemented later.
             }}
@@ -107,7 +118,7 @@ export function LoginForm({
               setPassword(event.target.value)
             }
             autoComplete="current-password"
-            className="pr-10"
+            className="h-12 border-[#B87333]/20 bg-[#F7E9D5]/40 pr-10 text-[#432818] placeholder:text-[#432818]/35 focus-visible:border-[#B87333] focus-visible:ring-[#B87333]/15"
             required
             disabled={isLoading}
           />
@@ -119,7 +130,7 @@ export function LoginForm({
                 (previous) => !previous,
               )
             }
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground hover:text-foreground"
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-[#432818]/40 transition-colors hover:text-[#B87333]"
           >
             {showPassword ? (
               <EyeOff className="size-4" />
@@ -137,10 +148,9 @@ export function LoginForm({
       </div>
 
       {/* LOGIN */}
-
       <Button
         type="submit"
-        className="w-full cursor-pointer"
+        className="h-12 w-full cursor-pointer bg-[#432818] font-semibold text-[#F7E9D5] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#B87333] hover:shadow-md"
         disabled={isLoading}
       >
         {isLoading && (

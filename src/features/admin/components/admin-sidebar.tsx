@@ -2,7 +2,7 @@
 
 import type { ComponentType } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   LayoutDashboard,
@@ -80,6 +80,7 @@ const adminNavigationGroups: AdminNavigationGroup[] = [
 ];
 
 export function AdminSidebar() {
+  const router = useRouter();
   const pathname = usePathname();
 
   return (
@@ -88,12 +89,14 @@ export function AdminSidebar() {
       <SidebarHeader className="border-b-1 border-gray-300">
         <div className="flex items-center gap-3 rounded-md py-2">
           {/* Logo */}
-          <div className="ml-2 flex shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <img
-              src="/logo.jpeg"
-              alt="Company Logo"
-              className="h-10 w-auto"
-            />
+          <div 
+            className="flex shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground cursor-pointer" 
+            onClick={() => router.replace("/")}>
+              <img
+                src="/logo.jpeg"
+                alt="Company Logo"
+                className="h-10 w-auto"
+              />
           </div>
 
           {/* Company */}
@@ -103,7 +106,7 @@ export function AdminSidebar() {
             </p>
 
             <p className="truncate text-xs text-muted-foreground">
-              Pro
+              Admin
             </p>
           </div>
         </div>

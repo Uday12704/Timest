@@ -26,11 +26,11 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { calculateSubscriptionStatus, getSubscription } from "@/features/subscription/subscription-storage";
 import { useAuth } from "@/features/auth/auth-context";
 import { formatDate } from "@/lib/formatters";
-import logo from "../../assets/logo.jpeg";
+import { Badge } from "../ui/badge";
 
 interface NavigationItem {
   title: string;
@@ -132,6 +132,7 @@ export function AppSidebar({
 }: AppSidebarProps) {
   
   const { user } = useAuth();
+  const router = useRouter();
   const pathname = usePathname();
 
   if(!user){
@@ -152,31 +153,32 @@ export function AppSidebar({
 
   return (
     <Sidebar collapsible="icon">
-        {/* HEADER */}
-        <SidebarHeader>
-          <div className="flex items-center gap-3 py-2 bg-secondary">
-              {/* Logo */}
-              <div className="flex shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                  <img
-                    src="/logo.jpeg"
-                    alt="Company Logo"
-                    className="h-10 w-auto"
-                  />
-              </div>
+      {/* HEADER */}
+      <SidebarHeader className="border-b-1 border-gray-300">
+        <div className="flex items-center gap-3 py-2">
+            {/* Logo */}
+            <div 
+              className="flex shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground cursor-pointer" 
+              onClick={() => router.replace("/")}>
+                <img
+                  src="/logo.jpeg"
+                  alt="Company Logo"
+                  className="h-10 w-auto"
+                />
+            </div>
 
-              {/* Company */}
-              <div className="min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
-                  <p className="truncate text-sm font-semibold">
+            {/* Company */}
+            <div className="min-w-0 flex-1 group-data-[collapsible=icon]:hidden">
+                <p className="truncate text-sm font-semibold">
                   TIMEST
-                  </p>
+                </p>
 
-                  <p className="truncate text-xs text-muted-foreground">
-                  Pro
-                  </p>
-              </div>
-          </div>
-        </SidebarHeader>
-      <SidebarSeparator />
+                <Badge className={`truncate text-xs bg-sidebar-accent ${subscription.planName === "Pro" ? "text-gray-500" : subscription.planName === "Premium" ? "text-yellow-500" : "text-blue-500"}`}>
+                  {subscription.planName}
+                </Badge>
+            </div>
+        </div>
+      </SidebarHeader>
 
       <SidebarContent>
         {/* Navigation */}
@@ -223,16 +225,16 @@ export function AppSidebar({
       <SidebarFooter>
         {/* FOOTER */}
         {/* Subscription */}
-        <div className="rounded-lg border bg-sidebar-accent p-3 group-data-[collapsible=icon]:hidden">
+        <div className="rounded-lg border-b-4 border-[#b87333] bg-sidebar-accent p-3 group-data-[collapsible=icon]:hidden">
 
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium">
               Subscription
             </span>
 
-            <span className="text-[10px] font-medium text-green-600">
+            <Badge variant={subscriptionStatus === "active" ? "success" : subscriptionStatus === "expiring" ? "warning" : "destructive"}>
               {subscriptionStatus}
-            </span>
+            </Badge>
           </div>
 
           <p className="mt-1 text-xs text-muted-foreground">
