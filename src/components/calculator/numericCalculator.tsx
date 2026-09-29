@@ -305,7 +305,7 @@ export default function NumericCalculator() {
 
         <Button
           type="button"
-          className="col-span-4 h-12 text-xl font-semibold bg-[#432818] text-primary cursor-pointer"
+          className="col-span-4 h-12 text-xl font-semibold bg-[#432818] text-white cursor-pointer"
           onClick={calculate}
         >
           =

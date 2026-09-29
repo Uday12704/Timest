@@ -744,7 +744,7 @@ export function RoundSizeEstimatePdf({
 
             </View>
 
-
+            {estimate.status === "CONFIRMED" && 
             <View style={styles.summaryRow}>
 
               <Text>
@@ -759,8 +759,9 @@ export function RoundSizeEstimatePdf({
               </Text>
 
             </View>
+            }
 
-
+            {estimate.status === "CONFIRMED" && 
             <View style={styles.summaryRow}>
 
               <Text>
@@ -775,7 +776,7 @@ export function RoundSizeEstimatePdf({
               </Text>
 
             </View>
-
+            }
 
             {/* ROUND SIZE MEASUREMENTS */}
 

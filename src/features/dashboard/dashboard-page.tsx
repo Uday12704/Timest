@@ -167,7 +167,7 @@ export function DashboardPage() {
               </div>
 
               <div className="flex-1">
-                <h3 className="font-semibold">Create New Estimate</h3>
+                <h1 className="font-semibold text-lg">Create New Estimate</h1>
                 <p className="mt-1 text-sm text-muted-foreground">
                   Start a cut-size, round-size, or custom estimate.
                 </p>

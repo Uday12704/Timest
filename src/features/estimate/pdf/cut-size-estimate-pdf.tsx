@@ -1008,7 +1008,7 @@ export function CutSizeEstimatePdf({
 
             </View>
 
-
+            {estimate.status === "CONFIRMED" && 
             <View style={styles.summaryRow}>
 
               <Text>
@@ -1023,8 +1023,9 @@ export function CutSizeEstimatePdf({
               </Text>
 
             </View>
+            }
 
-
+            {estimate.status === "CONFIRMED" && 
             <View style={styles.summaryRow}>
 
               <Text>
@@ -1039,6 +1040,7 @@ export function CutSizeEstimatePdf({
               </Text>
 
             </View>
+            }
 
             <View
               style={

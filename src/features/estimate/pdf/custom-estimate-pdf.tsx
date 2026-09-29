@@ -640,7 +640,7 @@ export function CustomEstimatePdf({
 
             </View>
 
-
+            {estimate.status === "CONFIRMED" && 
             <View style={styles.summaryRow}>
 
               <Text>
@@ -655,8 +655,9 @@ export function CustomEstimatePdf({
               </Text>
 
             </View>
+            }
 
-
+            {estimate.status === "CONFIRMED" && 
             <View style={styles.summaryRow}>
 
               <Text>
@@ -671,6 +672,7 @@ export function CustomEstimatePdf({
               </Text>
 
             </View>
+            }
 
           </View>
 
